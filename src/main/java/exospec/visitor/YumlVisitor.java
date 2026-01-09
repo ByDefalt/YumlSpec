@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * YumlVisitor implementation that respects the Open/Closed Principle.
- * No switch statements or if/else chains - only polymorphism through the visitor pattern.
+ * Corrected version with proper yUML syntax for relations.
  */
 public class YumlVisitor implements Visitor {
 
@@ -121,7 +121,6 @@ public class YumlVisitor implements Visitor {
         StringBuilder result = new StringBuilder();
         result.append(lastVisibilitySymbol);
         result.append(lastStylePrefix);
-        // The name is stored temporarily - we'll get it from context
         result.append(lastStyleSuffix);
 
         String output = result.toString();
@@ -206,9 +205,10 @@ public class YumlVisitor implements Visitor {
 
         // Add source multiplicity
         if (relation.getSourceMultiplicity() != null) {
-            relation.getSourceMultiplicity().accept(this);
-            relationBuilder.append(lastMultiplicity);
-            lastMultiplicity = "";
+            String mult = relation.getSourceMultiplicity().getValue();
+            if (mult != null && !mult.isEmpty()) {
+                relationBuilder.append(mult);
+            }
         }
 
         // Visit relation type to get the symbol
@@ -218,16 +218,17 @@ public class YumlVisitor implements Visitor {
             lastRelationSymbol = "";
         }
 
-        // Add role if present
+        // Add role if present (with space before >)
         if (relation.getRole() != null && !relation.getRole().isEmpty()) {
-            relationBuilder.append(relation.getRole());
+            relationBuilder.append(relation.getRole()).append(" ");
         }
 
         // Add target multiplicity
         if (relation.getTargetMultiplicity() != null) {
-            relation.getTargetMultiplicity().accept(this);
-            relationBuilder.append(lastMultiplicity);
-            lastMultiplicity = "";
+            String mult = relation.getTargetMultiplicity().getValue();
+            if (mult != null && !mult.isEmpty()) {
+                relationBuilder.append(mult);
+            }
         }
 
         // Build target
@@ -263,7 +264,6 @@ public class YumlVisitor implements Visitor {
     }
 
     // ==================== Visibility Visitors ====================
-    // Each visibility knows its own yUML symbol
 
     @Override
     public void visit(Private aPrivate) {
@@ -281,7 +281,6 @@ public class YumlVisitor implements Visitor {
     }
 
     // ==================== Style Visitors ====================
-    // Each style knows its own yUML formatting
 
     @Override
     public void visit(Bold bold) {
@@ -296,7 +295,6 @@ public class YumlVisitor implements Visitor {
     }
 
     // ==================== Stereotype Visitors ====================
-    // Each stereotype knows its own yUML representation
 
     @Override
     public void visit(AbstractStereotype abstractStereotype) {
@@ -310,39 +308,46 @@ public class YumlVisitor implements Visitor {
 
     @Override
     public void visit(ClassStereotype classStereotype) {
-        lastStereotype = "";
+        lastStereotype = "";  // Classes normales n'ont pas de stéréotype affiché
     }
 
     // ==================== Relation Type Visitors ====================
-    // Each relation type knows its own yUML symbol
+    // CORRIGÉ : Symboles yUML corrects d'après la documentation
 
     @Override
     public void visit(Association association) {
-        lastRelationSymbol = "->";
+        lastRelationSymbol = "->";  // Association directionnelle
     }
 
     @Override
     public void visit(Aggregation aggregation) {
-        lastRelationSymbol = "<>-";
+        lastRelationSymbol = "<>->";  // Agrégation
     }
 
     @Override
     public void visit(Composition composition) {
-        lastRelationSymbol = "++-";
+        lastRelationSymbol = "++->";  // Composition
     }
 
     @Override
     public void visit(Dependency dependency) {
-        lastRelationSymbol = "-.-";
+        lastRelationSymbol = "-.->";  // Dépendance (pointillé)
     }
 
     @Override
     public void visit(Implementation implementation) {
-        lastRelationSymbol = "^-.-";
+        lastRelationSymbol = "^-.-";  // Implémentation
     }
 
     @Override
     public void visit(Inheritance inheritance) {
-        lastRelationSymbol = "^-";
+        lastRelationSymbol = "^-";  // Héritage
+    }
+
+    @Override
+    public void visit(Cardinality cardinality) {
+        // Cardinality n'est pas un type de relation
+        // C'est géré par les multiplicités
+        // Ce visit ne devrait jamais être appelé
     }
 }

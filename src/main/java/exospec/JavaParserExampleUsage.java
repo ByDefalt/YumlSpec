@@ -21,6 +21,7 @@ public class JavaParserExampleUsage {
         classesToParse.add(Customer.class);
         classesToParse.add(Order.class);
         classesToParse.add(Product.class);
+        classesToParse.add(Fg.class);
 
         // Parser et créer le diagramme
         Diagram diagram = parser.parseListClass(classesToParse);
@@ -44,7 +45,11 @@ public class JavaParserExampleUsage {
 /**
  * Classe Customer - hérite de Person (externe, ne sera pas parsée)
  */
-class Customer extends Person {
+interface Fg{
+    void jsp(int i);
+}
+
+class Customer implements Fg {
     private String email;
     private List<Order> orders;
 
@@ -58,6 +63,11 @@ class Customer extends Person {
 
     public Order createOrder() {
         return new Order();
+    }
+
+    @Override
+    public void jsp(int i) {
+
     }
 }
 
