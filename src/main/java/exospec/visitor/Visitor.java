@@ -35,5 +35,6 @@ public interface Visitor {
     void visit(Dependency dependency);
     void visit(Implementation implementation);
     void visit(Inheritance inheritance);
+    void visit(Cardinality cardinality);
 
 }

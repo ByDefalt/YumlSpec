@@ -310,7 +310,7 @@ public class YumlVisitor implements Visitor {
 
     @Override
     public void visit(ClassStereotype classStereotype) {
-        lastStereotype = "<<class>>";
+        lastStereotype = "";
     }
 
     // ==================== Relation Type Visitors ====================
@@ -318,7 +318,7 @@ public class YumlVisitor implements Visitor {
 
     @Override
     public void visit(Association association) {
-        lastRelationSymbol = "-";
+        lastRelationSymbol = "->";
     }
 
     @Override
