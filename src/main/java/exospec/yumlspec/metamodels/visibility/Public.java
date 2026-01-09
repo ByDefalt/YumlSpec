@@ -1,8 +1,8 @@
-package exospec.yumlspec.metamodels.association;
+package exospec.yumlspec.metamodels.visibility;
 
 import exospec.visitor.Visitor;
 
-public class Inheritance extends RelationType{
+public class Public extends Visibility{
 
     @Override
     public void accept(Visitor visitor) {

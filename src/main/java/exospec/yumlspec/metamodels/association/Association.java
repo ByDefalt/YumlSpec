@@ -1,6 +1,6 @@
 package exospec.yumlspec.metamodels.association;
 
-import exospec.yumlspec.visitor.Visitor;
+import exospec.visitor.Visitor;
 
 public class Association extends RelationType{
 

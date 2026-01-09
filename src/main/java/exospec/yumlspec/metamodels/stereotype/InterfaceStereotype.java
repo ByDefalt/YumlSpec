@@ -1,8 +1,8 @@
-package exospec.yumlspec.metamodels.association;
+package exospec.yumlspec.metamodels.stereotype;
 
 import exospec.visitor.Visitor;
 
-public class Inheritance extends RelationType{
+public class InterfaceStereotype extends Stereotype {
 
     @Override
     public void accept(Visitor visitor) {
