@@ -343,11 +343,4 @@ public class YumlVisitor implements Visitor {
     public void visit(Inheritance inheritance) {
         lastRelationSymbol = "^-";  // Héritage
     }
-
-    @Override
-    public void visit(Cardinality cardinality) {
-        // Cardinality n'est pas un type de relation
-        // C'est géré par les multiplicités
-        // Ce visit ne devrait jamais être appelé
-    }
 }
