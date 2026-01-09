@@ -1,0 +1,12 @@
+<Root xmlns:parfeur="http://www.example.com">
+    <parfeur:A id="#1" value="10">
+        <parfeur:A.theBs>
+            <parfeur:B name="position" val="10"/>
+        </parfeur:A.theBs>
+    </parfeur:A>
+    <parfeur:A id="#10" value="5">
+        <parfeur:A.theBs>
+            <parfeur:B name="index" val="5"/>
+        </parfeur:A.theBs>
+    </parfeur:A>
+</Root>

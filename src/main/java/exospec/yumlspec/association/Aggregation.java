@@ -1,0 +1,11 @@
+package exospec.yumlspec.association;
+
+import exospec.visitor.Visitor;
+
+public class Aggregation extends RelationType{
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+}
