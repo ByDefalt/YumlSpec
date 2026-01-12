@@ -10,10 +10,7 @@ import exospec.yumlspec.metamodels.style.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * YumlVisitor implementation that respects the Open/Closed Principle.
- * Corrected version with proper yUML syntax for relations.
- */
+
 public class YumlVisitor implements Visitor {
 
     private StringBuilder yumlOutput = new StringBuilder();
