@@ -1,5 +1,7 @@
 package exospec.reflect;
 
+import exospec.serializer.SerializedAttribute;
+import exospec.serializer.SerializedEntity;
 import exospec.yumlspec.metamodels.*;
 import exospec.yumlspec.metamodels.Class;
 import exospec.yumlspec.metamodels.Parameter;
@@ -41,6 +43,7 @@ public class JavaParser {
     public void parseClass(java.lang.Class<?> clazz, Diagram diagram) {
         String className = clazz.getSimpleName();
         String fullClassName = clazz.getName();
+        if(!clazz.isAnnotationPresent(SerializedEntity.class)) return;
         int modifiers = clazz.getModifiers();
 
         // Créer le modèle de classe
@@ -308,6 +311,7 @@ public class JavaParser {
             if(field.isSynthetic()) {
                 continue;
             }
+            if(!field.isAnnotationPresent(SerializedAttribute.class)) continue;
 
             Attribute attribute = new Attribute();
             attribute.setName(field.getName());
